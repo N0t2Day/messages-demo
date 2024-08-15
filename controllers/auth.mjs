@@ -11,10 +11,12 @@ export const postSignup = async (req, res, next) => {
             return res.status(400).json({ error: 'Email already registered' })
         }
 
+        const salt = await bcrypt.genSalt(10)
+        const hashedPassword = await bcrypt.hash(password, salt)
         const newUser = new User({
             name: userName,
             email,
-            password,
+            hashedPassword,
         })
         await newUser.save()
         res.status(201).json({ message: 'User registered successfully' })
@@ -41,6 +43,6 @@ export const postLogin = async (req, res, next) => {
         req.session.user = user
         res.status(200).json({ token })
     } catch (error) {
-        res.status(500).json({ error: 'An error occurred while logging in' })
+        res.status(500).json({ error: 'An error occurred while fetching user' })
     }
 }
