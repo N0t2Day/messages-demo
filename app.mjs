@@ -1,12 +1,15 @@
 import express from 'express'
 import * as mongodb from 'mongodb'
-import * as session from 'express-session'
+import session from 'express-session'
 import mongoose from 'mongoose'
-import { session as MongoDBStore } from 'connect-mongodb-session'
+import connectMongoDBSession from 'connect-mongodb-session'
+import dotenv from 'dotenv'
+dotenv.config()
+const MongoDBStore = connectMongoDBSession(session)
 
 const MONGODB_URI = process.env.MONGODB_URI
 const PORT = process.env.SERVER_PORT
-
+console.log(MONGODB_URI)
 const app = express()
 
 const store = new MongoDBStore({
