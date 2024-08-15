@@ -6,3 +6,4 @@ import User from '../models/user.mjs'
 const router = express.Router()
 
 router.post('/signup', await authController.postSignup)
+router.post('/login', await authController.postLogin)

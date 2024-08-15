@@ -28,7 +28,7 @@ export const postSignup = async (req, res, next) => {
 export const postLogin = async (req, res, next) => {
     try {
         const { email, password } = req.body
-        const existingUser = await User.findOne({ email })
+        const user = await User.findOne({ email })
         if (!user) {
             return res.status(401).json({ error: 'Invalid email or password' })
         }
@@ -37,7 +37,8 @@ export const postLogin = async (req, res, next) => {
             return res.status(401).json({ error: 'Invalid email or password' })
         }
         const token = jwt.sign({ userId: user._id }, 'secretKey')
-
+        req.session.isLoggedIn = true
+        req.session.user = user
         res.status(200).json({ token })
     } catch (error) {
         res.status(500).json({ error: 'An error occurred while logging in' })
