@@ -30,8 +30,8 @@ const userSchema = new mongoose.Schema({
     },
 })
 
-userSchema.methods.addMessage = async (message) => {
-    const updatedMessages = this.messages
+userSchema.methods.addMessage = async function (message) {
+    const updatedMessages = [...this.messages.data]
     updatedMessages.push(message)
     this.messages.messagesQty += 1
     this.messages.data = updatedMessages
