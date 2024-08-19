@@ -12,6 +12,12 @@ const messageSchema = new mongoose.Schema({
         required: true,
     },
 
+    parentMessageId: {
+        type: String,
+        required: false,
+        default: null,
+    },
+
     replies: {
         repliesQty: {
             type: Number,
@@ -27,8 +33,8 @@ const messageSchema = new mongoose.Schema({
     },
 })
 
-messageSchema.methods.addReply = async (message) => {
-    const updatedReplies = this.replies.data
+messageSchema.methods.addReply = async function (message) {
+    const updatedReplies = [...this.replies.data]
     updatedReplies.push(message)
     this.replies.repliesQty += 1
     this.replies.data = updatedReplies
