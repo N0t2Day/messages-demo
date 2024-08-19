@@ -1,15 +1,25 @@
-import { jsonwebtoken as JWT } from 'jsonwebtoken'
-import dotenv from 'dotenv'
+import passport from 'passport'
+import User from '../models/user.mjs'
+import { Strategy, ExtractJwt } from 'passport-jwt'
+import { config } from 'dotenv'
+config()
 
-dotenv.config()
-
-export const isAuthenticated = async (req, res, next) => {
-    try {
-        const token = req.headers.authorization.split(' ')[1]
-        const decodeToken = jwt.verify(token, process.env.JWT_SECRET)
-        req.userId = decodedToken.userId
-        next()
-    } catch (error) {
-        res.status(401).json({ error: 'Unauthorized' })
-    }
+let options = {
+    jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+    secretOrKey: process.env.JWT_SECRET,
 }
+passport.use(
+    new Strategy(options, async (jwt_payload, done) => {
+        try {
+            const user = await User.findById(jwt_payload.userId)
+            if (user) {
+                return done(null, user)
+            } else {
+                return done(null, false)
+            }
+        } catch (error) {
+            console.error(error)
+            return done(error, false)
+        }
+    })
+)
