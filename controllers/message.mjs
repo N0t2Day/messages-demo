@@ -53,7 +53,7 @@ const postMessage = async (req, res, next) => {
     console.log(userId, text, file)
     try {
         // const blob =
-
+        const filePath = file.path
         const user = await User.findOne({ _id: userId })
         const newMessage = new Message({
             owner: req.user,
