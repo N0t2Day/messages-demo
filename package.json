@@ -1,0 +1,38 @@
+{
+    "dependencies": {
+        "@google-cloud/storage": "^7.12.1",
+        "bcryptjs": "^2.4.3",
+        "body-parser": "^1.20.2",
+        "connect-mongodb-session": "^5.0.0",
+        "cors": "^2.8.5",
+        "dotenv": "^16.4.5",
+        "express": "^4.19.2",
+        "express-session": "^1.18.0",
+        "express-validator": "^7.2.0",
+        "install": "^0.13.0",
+        "jsonwebtoken": "^9.0.2",
+        "mongodb": "^6.8.0",
+        "mongoose": "^8.5.3",
+        "mongoose-paginate-v2": "^1.8.3",
+        "morgan": "^1.10.0",
+        "multer": "^1.4.5-lts.1",
+        "npm": "^10.8.2",
+        "passport": "^0.7.0",
+        "passport-jwt": "^4.0.1",
+        "passport-local": "^1.0.0"
+    },
+    "devDependencies": {
+        "nodemon": "^3.1.4"
+    },
+    "name": "messages-demo",
+    "description": "",
+    "version": "1.0.0",
+    "main": "app.mjs",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "node app.mjs",
+        "dev": "nodemon app.mjs"
+    },
+    "author": "Artem",
+    "license": "ISC"
+}
