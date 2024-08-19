@@ -1,11 +1,13 @@
 import express from 'express'
 import * as messageController from '../controllers/message.mjs'
 import passport from 'passport'
+import multer from '../middleware/multer.mjs'
 const router = express.Router()
 
 router.post(
     '/message',
     passport.authenticate('jwt', { session: false }),
+    multer.single('fileData'),
     messageController.postMessage
 )
 

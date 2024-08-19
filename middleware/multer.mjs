@@ -17,7 +17,8 @@ const fileExtChecker = (req, file, callback) => {
     const ext = TYPE_IMAGE[file.mimetype]
         ? TYPE_IMAGE[file.mimetype]
         : TYPE_File[file.mimetype]
-    callback(null, uuid() + '.' + ext)
+    // callback(null, uuid() + '.' + ext)
+    callback(null, new Date().toISOString + '-' + file.originalname)
 }
 
 const fileFilter = (req, file, callback) => {
