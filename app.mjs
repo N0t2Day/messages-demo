@@ -10,7 +10,7 @@ import userRouter from './routers/user.mjs'
 import messageRouter from './routers/message.mjs'
 import './middleware/auth.mjs'
 import cors from 'cors'
-import Multer from 'multer'
+import multer from './middleware/multer.mjs'
 import * as path from 'path'
 import { Storage } from '@google-cloud/storage'
 dotenv.config()
@@ -19,9 +19,7 @@ dotenv.config()
 const MONGODB_URI = process.env.MONGODB_URI
 const PORT = process.env.SERVER_PORT
 const app = express()
-const multer = Multer({
-    storage: Multer.memoryStorage(),
-})
+
 const storage = new Storage({
     projectId: '',
     keyFilename: '',
