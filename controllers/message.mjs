@@ -1,6 +1,6 @@
 import Message from '../models/message.mjs'
 import User from '../models/user.mjs'
-
+import * as storage from '../services/storage.mjs'
 const PER_PAGE = 20
 
 const getAllMessages = async (req, res, next) => {
@@ -52,7 +52,6 @@ const postMessage = async (req, res, next) => {
     const file = req.file
     console.log(userId, text, file)
     try {
-        // const blob =
         const filePath = file.path
         const user = await User.findOne({ _id: userId })
         const newMessage = new Message({
@@ -62,7 +61,10 @@ const postMessage = async (req, res, next) => {
         })
         await newMessage.save()
         await user.addMessage(newMessage)
-        res.status(200).json({})
+        const result = await storage.bucket.upload(filePath)
+        res.status(200).json({
+            mediaLink: result[0].metadata.mediaLink,
+        })
     } catch (error) {
         res.status(500).json({ error: 'Unknown error' })
     }

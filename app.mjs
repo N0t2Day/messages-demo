@@ -12,19 +12,12 @@ import './middleware/auth.mjs'
 import cors from 'cors'
 import multer from './middleware/multer.mjs'
 import * as path from 'path'
-import { Storage } from '@google-cloud/storage'
 dotenv.config()
 // const MongoDBStore = connectMongoDBSession(session)
 
 const MONGODB_URI = process.env.MONGODB_URI
 const PORT = process.env.SERVER_PORT
 const app = express()
-
-const storage = new Storage({
-    projectId: '',
-    keyFilename: '',
-})
-
 app.set('trust proxy', 1)
 
 // const store = new MongoDBStore({
